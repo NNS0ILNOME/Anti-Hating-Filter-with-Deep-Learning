@@ -21,8 +21,8 @@ Progetto_DL/
 │ └── predict.py # Script per lanciare inferenza su nuovi dati
 │
 ├── data/ # Cartella dedicata ai dati
-│ ├── README.md # Spiega come ottenere o scaricare il dataset
-│ └── sample.csv # (Facoltativo) piccolo esempio di dati di input
+│ ├── README.md # Spiega dove scarica il dataset
+│ └── dataset_orignale.csv # Dataset utilizzato
 │
 ├── models/ # Modelli addestrati o link per scaricarli
 │ └── README.md # Spiega come scaricare i pesi del modello
