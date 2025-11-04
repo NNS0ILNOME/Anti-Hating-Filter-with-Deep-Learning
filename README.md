@@ -39,6 +39,21 @@ Progetto_DL/
 └── README.md # File principale di documentazione del progetto
 '''
 
+.
+├── .DS_Store
+├── .gitignore
+├── data
+├── LICENSE
+├── models
+├── notebook
+│   └── Anti-Hating_Filter.ipynb
+├── README.md
+├── requirements.txt
+├── results
+├── src
+└── struttura.txt
+
+
 Ogni componente del progetto è stato pensato per rendere il codice modulare e facilmente riutilizzabile:
 - **`notebooks/`** contiene il flusso completo del progetto, utile per l’analisi e la presentazione.
 - **`src/`** raccoglie il codice vero e proprio, strutturato in moduli indipendenti.
