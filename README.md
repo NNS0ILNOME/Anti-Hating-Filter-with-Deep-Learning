@@ -7,7 +7,6 @@ Include: preprocessing, addestramento, validazione e inferenza finale.
 ## Struttura del progetto
 
 La struttura del repository è organizzata per separare in modo chiaro i diversi componenti del workflow di Deep Learning:
-
 ```
 Progetto_DL/
 ├── notebooks/ # Contiene i notebook Jupyter (.ipynb) con EDA, training e test
@@ -38,22 +37,6 @@ Progetto_DL/
 ├── .gitignore # File che indica a Git cosa non deve essere incluso
 └── README.md # File principale di documentazione del progetto
 ```
-
-.
-├── .DS_Store
-├── .gitignore
-├── data
-├── LICENSE
-├── models
-├── notebook
-│   └── Anti-Hating_Filter.ipynb
-├── README.md
-├── requirements.txt
-├── results
-├── src
-└── struttura.txt
-
-
 Ogni componente del progetto è stato pensato per rendere il codice modulare e facilmente riutilizzabile:
 - **`notebooks/`** contiene il flusso completo del progetto, utile per l’analisi e la presentazione.
 - **`src/`** raccoglie il codice vero e proprio, strutturato in moduli indipendenti.
