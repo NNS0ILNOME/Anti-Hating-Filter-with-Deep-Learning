@@ -5,6 +5,6 @@ seaborn>=0.13
 scikit-learn>=1.4
 tqdm>=4.66
 
-# TensorFlow ottimizzato per Apple Silicon
+# TensorFlow optimized for Apple Silicon
 tensorflow-macos>=2.16
 tensorflow-metal>=1.1
