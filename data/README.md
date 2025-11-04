@@ -8,7 +8,7 @@ In questa cartella è presente il file:
 
 ## Descrizione del dataset
 Ogni riga del file rappresenta un esempio con le seguenti colonne principali:
-## 🧾 Descrizione del dataset
+## Descrizione del dataset
 Ogni riga del file rappresenta un esempio, con le seguenti colonne principali:
 
 |     Colonna     | Descrizione |
@@ -24,8 +24,11 @@ Ogni riga del file rappresenta un esempio, con le seguenti colonne principali:
 
 
 ## Origine
-Il dataset è scaricabile dal mio drive personale
-[link](https://drive.google.com/file/d/1Y0750AWh4Wp6M1WOOxaNH0Rv7hy9BlUx/view?usp=drive_link) 
+Il dataset è disponibile su Google Drive al seguente link:
+
+[Scarica il dataset da Google Drive](https://drive.google.com/file/d/1Y0750AWh4Wp6M1WOOxaNH0Rv7hy9BlUx/view?usp=drive_link)
+
+*(Il file è condiviso in sola lettura; chiunque può scaricarlo.)*
 
 ## Utilizzo
 Il notebook principale (`notebooks/Anti-Hating_Filter.ipynb`) legge automaticamente il file:
