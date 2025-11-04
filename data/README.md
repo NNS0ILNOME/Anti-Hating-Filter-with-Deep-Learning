@@ -4,10 +4,8 @@ Questo progetto utilizza un dataset di testo per l’addestramento del filtro an
 
 ## Contenuto
 In questa cartella è presente il file:
-- `Filter_Toxic_Comments_dataset.csv` — contiene i dati testuali e le relative etichette (`0` = non offensivo, `1` = offensivo) alle sei differenti labels che caratterizzano la tipologia di odio (se presente) del testo.
+- **`Filter_Toxic_Comments_dataset.csv`** — contiene i commenti testuali e le relative etichette (`0` = non offensivo, `1` = offensivo) distribuite su sette categorie di odio.
 
-## Descrizione del dataset
-Ogni riga del file rappresenta un esempio con le seguenti colonne principali:
 ## Descrizione del dataset
 Ogni riga del file rappresenta un esempio, con le seguenti colonne principali:
 
