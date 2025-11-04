@@ -1,35 +1,35 @@
 # Dataset
 
-Questo progetto utilizza un dataset di testo per l’addestramento del filtro anti-hating.
+This project uses a text dataset to train the anti-hating filter.
 
-## Contenuto
-In questa cartella è presente il file:
-- **`Filter_Toxic_Comments_dataset.csv`** — contiene i commenti testuali e le relative etichette (`0` = non offensivo, `1` = offensivo) distribuite su sei categorie di odio.
+## Content
+In this folder there is the file:
+- **`Filter_Toxic_Comments_dataset.csv`** — contains text comments and their labels (`0` = not offensive, `1` = offensive) across six hate categories.
 
-## Descrizione del dataset
-Ogni riga del file rappresenta un esempio, con le seguenti colonne principali:
+## Dataset description
+Each line in the file represents an example, with the following main columns:
 
-|     Colonna     | Descrizione |
-|-----------------|-------------|
-|   `comment_text`| Contenuto testuale del commento o frase |
-|          `toxic`| Etichetta binaria per contenuti tossici |
-|   `severe_toxic`| Etichetta per contenuti altamente tossici |
-|        `obscene`| Etichetta per linguaggio osceno |
-|         `threat`| Etichetta per minacce |
-|         `insult`| Etichetta per insulti |
-|  `identity_hate`| Etichetta per odio verso identità specifiche |
-|  `sum_injurious`| Somma delle etichette precedenti |
+| Column | Description |
+|-----------------|------------|
+| `comment_text`| Textual content of the comment or phrase |
+| `toxic`| Binary tag for toxic content |
+| `severe_toxic`| Tag for highly toxic content |
+| `obscene`| Tag for obscene language |
+| `threat`| Tag for threats |
+| `insult`| Tag for insults |
+| `identity_hate`| Tag for hatred towards specific identities |
+| `sum_injurious`| Sum of previous tags |
 
 
-## Origine
-Il dataset è disponibile su Google Drive al seguente link:
+## Source
+The dataset is available on Google Drive at the following link:
 
-[Scarica il dataset da Google Drive](https://drive.google.com/file/d/1Y0750AWh4Wp6M1WOOxaNH0Rv7hy9BlUx/view?usp=drive_link)
+[Download the dataset from Google Drive](https://drive.google.com/file/d/1Y0750AWh4Wp6M1WOOxaNH0Rv7hy9BlUx/view?usp=drive_link)
 
-*(Il file è condiviso in sola lettura; chiunque può scaricarlo.)*
+*(The file is shared read-only; anyone can download it.)*
 
-## Utilizzo
-Il notebook principale (`notebooks/Anti-Hating_Filter.ipynb`) legge automaticamente il file:
+## Usage
+The main notebook (`notebooks/Anti-Hating_Filter.ipynb`) automatically reads the file:
 ```python
 import pandas as pd
 df = pd.read_csv("data/Filter_Toxic_Comments_dataset.csv")
