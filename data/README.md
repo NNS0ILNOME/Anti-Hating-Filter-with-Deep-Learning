@@ -4,7 +4,7 @@ Questo progetto utilizza un dataset di testo per l’addestramento del filtro an
 
 ## Contenuto
 In questa cartella è presente il file:
-- **`Filter_Toxic_Comments_dataset.csv`** — contiene i commenti testuali e le relative etichette (`0` = non offensivo, `1` = offensivo) distribuite su sette categorie di odio.
+- **`Filter_Toxic_Comments_dataset.csv`** — contiene i commenti testuali e le relative etichette (`0` = non offensivo, `1` = offensivo) distribuite su sei categorie di odio.
 
 ## Descrizione del dataset
 Ogni riga del file rappresenta un esempio, con le seguenti colonne principali:
@@ -14,11 +14,11 @@ Ogni riga del file rappresenta un esempio, con le seguenti colonne principali:
 |   `comment_text`| Contenuto testuale del commento o frase |
 |          `toxic`| Etichetta binaria per contenuti tossici |
 |   `severe_toxic`| Etichetta per contenuti altamente tossici |
-| `obscene`       | Etichetta per linguaggio osceno |
-| `threat`        | Etichetta per minacce |
-| `insult`        | Etichetta per insulti |
-| `identity_hate` | Etichetta per odio verso identità specifiche |
-| `sum_injurious` | Somma p delle etichette precedenti |
+|        `obscene`| Etichetta per linguaggio osceno |
+|         `threat`| Etichetta per minacce |
+|         `insult`| Etichetta per insulti |
+|  `identity_hate`| Etichetta per odio verso identità specifiche |
+|  `sum_injurious`| Somma delle etichette precedenti |
 
 
 ## Origine
@@ -32,6 +32,6 @@ Il dataset è disponibile su Google Drive al seguente link:
 Il notebook principale (`notebooks/Anti-Hating_Filter.ipynb`) legge automaticamente il file:
 ```python
 import pandas as pd
-data = pd.read_csv("data/Filter_Toxic_Comments_dataset.csv")
+df = pd.read_csv("data/Filter_Toxic_Comments_dataset.csv")
 ```
 
