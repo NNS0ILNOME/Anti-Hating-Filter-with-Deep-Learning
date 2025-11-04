@@ -13,11 +13,11 @@ Each line in the file represents an example, with the following main columns:
 |-----------------|------------|
 | `comment_text`| Textual content of the comment or phrase |
 | `toxic`| Binary tag for toxic content |
-| `severe_toxic`| Tag for highly toxic content |
-| `obscene`| Tag for obscene language |
-| `threat`| Tag for threats |
-| `insult`| Tag for insults |
-| `identity_hate`| Tag for hatred towards specific identities |
+| `severe_toxic`| Binary tag for highly toxic content |
+| `obscene`| Binary tag for obscene language |
+| `threat`| Binary tag for threats |
+| `insult`| Binary tag for insults |
+| `identity_hate`| Binary tag for hatred towards specific identities |
 | `sum_injurious`| Sum of previous tags |
 
 
