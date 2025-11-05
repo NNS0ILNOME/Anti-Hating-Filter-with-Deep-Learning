@@ -37,7 +37,7 @@ from tensorflow.keras.models import load_model, Sequential
 # FROM MY FILES
 from data_utils import load_dataset, preprocess_text, tokenization_and_pudding, CSVLoggerCustom
 from model import binary_hate_model, callback_binary_hate, class_weights_hate
-from evaluate import evaluate_model
+from evaluate import evaluation_class, evaluate_model
 
 
 # PREPROCESSING TESTO
@@ -48,6 +48,10 @@ df = preprocess_text(df)
 df['has_hate'] = df[['toxic', 'severe_toxic', 'obscene', 'threat', 'insult', 'identity_hate']].any(axis = 1).astype(int)
 x = df.comment_text.values
 y_hate = df.loc[:, 'has_hate']
+
+class_counts = y_hate.sum().sort_values(ascending=False)
+evaluation_class(count = class_counts, folder = 'binary_hate')
+
 
 x_train_hate, x_test_hate, y_train_hate, y_test_hate = train_test_split(x, y_hate, test_size = 0.2, 
                                                                         random_state = 1, 
@@ -79,9 +83,10 @@ csv_logger = CSVLoggerCustom('results/training_log_model_hate_or_not.csv', verbo
                                             validation_split = 0.2,
                                             batch_size = 256,
                                             class_weight = class_weights_hate(y_test_hate),
-                                            callbacks = [callback_binary_hate(), csv_logger])
+                                            callbacks = [callback_binary_hate(), csv_logger])'''
 
-model_hate_binary.save('/content/drive/MyDrive/Colab Notebooks/Progetto GitHub/DL GitHub/hate_filter_model.h5')'''
+#model_hate_binary.save('/content/drive/MyDrive/Colab Notebooks/Progetto GitHub/DL GitHub/hate_filter_model.h5')
+#model_hate_binary.save('/model/hate_filter_model.h5')
 
 try:
   model_hate_binary = tf.keras.models.load_model('/content/drive/MyDrive/Colab Notebooks/Deep Learning/model_hating_or_not.h5')
@@ -90,3 +95,13 @@ except Exception as e:
   print(f"Errore nel caricamento del modello binario: {e}")
 
 evaluate_model(model_hate_binary, padded_test_hate_sequences, y_test_hate, fold = 'binary_hate')
+
+# --- SECOND MODEL, MULTILABEL CLASSIFICATION, TYPE HATE ---
+df_hate_type = df[df["has_hate"] == 1]
+
+x_hate_type = df_hate_type.comment_text.values
+y_hate_type = df_hate_type.loc[:, 'toxic':'identity_hate']
+
+class_counts = y_hate_type.sum().sort_values(ascending=False)
+
+evaluation_class(count = class_counts, folder = 'type_hate')

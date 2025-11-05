@@ -8,6 +8,24 @@ import matplotlib.pyplot as plt
 from tensorflow.keras.models import load_model
 from data_utils import load_dataset, preprocess_text, tokenization_and_pudding
 
+
+def evaluation_class(count, folder = None):
+  os.makedirs(f"results/{folder}", exist_ok=True)
+  
+  plt.figure(figsize=(6, 4))
+  count.plot(kind='bar', color=sns.color_palette('viridis', len(count)))
+  plt.title('Distribution of Hating Categories')
+  plt.xlabel('Hating Category')
+  plt.ylabel('Count')
+  plt.xticks(rotation=45, ha='right')
+  plt.tight_layout()
+  plt.savefig(f"results/{folder}/distribution_class.png")
+  plt.close()
+
+
+# ---------------------------------------------------------------
+
+
 def evaluate_model(model, X_test, y_test, fold = None):
     print("Predizioni in corso...")
     y_pred = (model.predict(X_test) > 0.5).astype(int)
