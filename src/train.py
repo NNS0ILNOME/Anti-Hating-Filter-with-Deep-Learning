@@ -49,7 +49,7 @@ df['has_hate'] = df[['toxic', 'severe_toxic', 'obscene', 'threat', 'insult', 'id
 x = df.comment_text.values
 y_hate = df.loc[:, 'has_hate']
 
-class_counts = y_hate.sum()
+class_counts = class_counts = pd.Series(y_hate).value_counts().sort_index()
 evaluation_class(count = class_counts, folder = 'binary_hate')
 
 
