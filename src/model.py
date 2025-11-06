@@ -18,13 +18,13 @@ def callback_binary_hate():
                              restore_best_weights = True,  # ripristina i pesi migliori
                              verbose = 1)
 
-  checkpoint = ModelCheckpoint('/content/drive/MyDrive/Colab Notebooks/Deep Learning/model_hate_binary.h5',
-                               monitor = 'val_loss',
-                               save_best_only = True,
-                               save_weights_only = False,
-                               verbose = 1)
+  #checkpoint = ModelCheckpoint('/content/drive/MyDrive/Colab Notebooks/Deep Learning/model_hate_binary.h5',
+  #                             monitor = 'val_loss',
+  #                             save_best_only = True,
+  #                             save_weights_only = False,
+  #                             verbose = 1)
 
-  return early_stop, checkpoint, reduce_learning_rate
+  return early_stop,'''checkpoint,''' reduce_learning_rate
 
 
 #------------------------------------------------------------------

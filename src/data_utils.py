@@ -73,7 +73,7 @@ def tokenization_and_pudding(x_train, x_test, num_words: int = None, verbose = F
     tokenizer (Tokenizer): Trained tokenizer object.
     """
 
-    # Crea e addestra il tokenizer
+    # Create and train the tokenizer
     tokenizer = Tokenizer(num_words=num_words)
     tokenizer.fit_on_texts(x_train)
 
@@ -89,7 +89,7 @@ def tokenization_and_pudding(x_train, x_test, num_words: int = None, verbose = F
     padded_test_sequences = pad_sequences(sequences = test_sequences, maxlen = max_len)
 
     # Calculate vocabulary size
-    vocabulary_size = len(tokenizer.word_counts) + 1 # quel + 1 serve per il padding
+    vocabulary_size = len(tokenizer.word_counts) + 1 # that + 1 is for padding
 
     if verbose == True:
         print(colored(f"Tokenization complete: {vocabulary_size} words in vocabulary, max_len={max_len}",'green'))
