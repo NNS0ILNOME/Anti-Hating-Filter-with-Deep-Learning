@@ -37,7 +37,7 @@ from tensorflow.keras.models import load_model, Sequential
 # FROM MY FILES
 from data_utils import load_dataset, preprocess_text, tokenization_and_pudding, CSVLoggerCustom
 from model import binary_hate_model, callback_binary_hate, class_weights_hate, compute_class_weights, weighted_binary_crossentropy, \
-                  hate_type_model
+                  hate_type_model, callback_hate_type
 from evaluate import evaluation_class, evaluate_model
 
 
@@ -87,7 +87,7 @@ model_hate_binary = binary_hate_model(vocabulary_size = vocabulary_hate_size,
 csv_logger_binary_hate = CSVLoggerCustom('results/binary_hate/training_log_model_hate_or_not.csv', verbose = True)
 
 # FIT THE MODEL
-history_hate_binary = model_hate_binary.fit(padded_train_hate_sequences,
+'''history_hate_binary = model_hate_binary.fit(padded_train_hate_sequences,
                                             y_train_hate,
                                             epochs = 100,
                                             validation_split = 0.2,
@@ -96,7 +96,7 @@ history_hate_binary = model_hate_binary.fit(padded_train_hate_sequences,
                                             callbacks = [callback_binary_hate(), csv_logger_binary_hate])
 
 # COPY WEIGHTS TO /models (to be added)
-model_hate_binary.save('/content/drive/MyDrive/Colab Notebooks/Progetto GitHub/DL GitHub/binary_hate_model.h5')
+model_hate_binary.save('/content/drive/MyDrive/Colab Notebooks/Progetto GitHub/DL GitHub/binary_hate_model.h5')'''
 #model_hate_binary.save('/model/hate_filter_model.h5')
 
 ###
@@ -120,7 +120,7 @@ y_hate_type = df_hate_type.loc[:, 'toxic':'identity_hate']
 
 # EVALUTATE CLASS DISTRIBUTIONS
 class_counts = y_hate_type.sum().sort_values(ascending=False)
-evaluation_class(count = class_counts, folder = 'type_hate')
+evaluation_class(count = class_counts, folder = 'hate_type')
 
 # SPLIT DATASET 
 x_train_hate_type, x_test_hate_type, \
@@ -132,7 +132,7 @@ x_train_hate_type, x_test_hate_type, \
 
 # TOKENIATION AND PUDDING
 padded_train_hate_type_sequences, padded_test_hate_type_sequences, max_len_hate_type, vocabulary_hate_type_size, \
-  tokenizer_hatetype = tokenization_and_pudding(x_train = x_train_hate_type,
+  tokenizer_hate_type = tokenization_and_pudding(x_train = x_train_hate_type,
                                                  x_test = x_test_hate_type)
 
 # CALCULATE THE WEIGHTS OF THE CLASSES
@@ -143,11 +143,17 @@ model_hate_type = hate_type_model(vocabulary_size = vocabulary_hate_type_size,
                                   max_len = max_len_hate_type,
                                   dropout = 0.2,
                                   optimizer = tf.keras.optimizers.RMSprop(learning_rate = 1e-4),
-                                  loss = weighted_binary_crossentropy(weights_tensor = weights_tensor),
+                                  loss = weighted_binary_crossentropy(weights_tensor),
                                   metrics = ['accuracy',
                                              tf.keras.metrics.AUC(name = 'auc', multi_label=True),
                                              tf.keras.metrics.Precision(name = 'precision'),
                                              tf.keras.metrics.Recall(name = 'recall')])
-#model_hate_type.summary()
 
-csv_logger_hate_type = CSVLoggerCustom('results/binary_hate/training_log_model_hate_type.csv')
+csv_logger_hate_type = CSVLoggerCustom('results/hate_type/training_log_model_hate_type.csv')
+
+history_hate_type = model_hate_type.fit(padded_train_hate_type_sequences,
+                                        y_train_hate_type,
+                                        epochs = 100,
+                                        validation_split = 0.2,
+                                        batch_size = 64,
+                                        callbacks = [callback_hate_type(), csv_logger_hate_type])

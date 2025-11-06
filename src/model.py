@@ -74,11 +74,16 @@ def compute_class_weights(y_train):
 # ---------- LOSS FUNCTION ----------
 # -----------------------------------
 
-def weighted_binary_crossentropy(y_true, y_pred, weights_tensor):
+def weighted_binary_crossentropy(weights):
+  
+    weights = tf.constant(weights, dtype=tf.float32)
+    
+    def loss(y_true, y_pred):
+        bce = tf.keras.backend.binary_crossentropy(y_true, y_pred)
+        return tf.reduce_sum(bce * weights, axis=-1)
+    
+    return loss
 
-    bce = tf.keras.backend.binary_crossentropy(y_true, y_pred)
-
-    return tf.reduce_sum(bce * weights_tensor, axis=-1)
 
 
 # ----------------------------
