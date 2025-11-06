@@ -24,7 +24,7 @@ def callback_binary_hate():
   #                             save_weights_only = False,
   #                             verbose = 1)
 
-  return early_stop,'''checkpoint,''' reduce_learning_rate
+  return early_stop, reduce_learning_rate
 
 
 #------------------------------------------------------------------
