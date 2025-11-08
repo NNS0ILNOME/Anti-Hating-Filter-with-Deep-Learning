@@ -9,7 +9,7 @@ from termcolor import colored
 from tensorflow.keras.preprocessing.text import Tokenizer
 from tensorflow.keras.preprocessing.sequence import pad_sequences
 
-def load_dataset(path: str = "data/Filter_Toxic_Comments_dataset.csv") -> pd.DataFrame:
+def load_dataset(path: str = "../data/Filter_Toxic_Comments_dataset.csv") -> pd.DataFrame:
     """
     Loads the dataset and returns a pandas DataFrame.
     Checks that the file exists and is readable.
