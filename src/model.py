@@ -19,7 +19,7 @@ def callback_binary_hate():
                                            verbose = 0)           
 
   early_stop = EarlyStopping(monitor = 'val_loss',       
-                             patience = 7,                 
+                             patience = 2,                 
                              restore_best_weights = True,
                              verbose = 1)
 
@@ -36,7 +36,7 @@ def callback_hate_type():
                                            verbose = 0)            
 
   early_stop = EarlyStopping(monitor = 'val_loss',         
-                             patience = 20,               
+                             patience = 2,               
                              restore_best_weights = True,  
                              verbose = 1)
 

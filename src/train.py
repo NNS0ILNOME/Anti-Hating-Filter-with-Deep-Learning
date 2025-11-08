@@ -72,7 +72,7 @@ padded_train_hate_sequences, padded_test_hate_sequences, max_len_hate, vocabular
                                                    x_test = x_test_hate)
 
 # INSTANTIATE THE MODEL AND HYPERPARAMETERS
-'''clear_session()
+clear_session()
 model_hate_binary = binary_hate_model(vocabulary_size = vocabulary_hate_size,
                                       max_len = max_len_hate,
                                       dropout = 0.3,
@@ -84,7 +84,7 @@ model_hate_binary = binary_hate_model(vocabulary_size = vocabulary_hate_size,
                                                  tf.keras.metrics.Recall(name = 'recall')])
 
 # LOG FILE .csv
-csv_logger_binary_hate = CSVLoggerCustom('results/binary_hate/training_log_model_hate_or_not.csv', verbose = True)
+csv_logger_binary_hate = CSVLoggerCustom('results/binary_hate/log_training_model_binary_hate.csv', verbose = True)
 
 # FIT THE MODEL
 history_hate_binary = model_hate_binary.fit(padded_train_hate_sequences,
@@ -96,12 +96,12 @@ history_hate_binary = model_hate_binary.fit(padded_train_hate_sequences,
                                             callbacks = [callback_binary_hate(), csv_logger_binary_hate])
 
 # COPY WEIGHTS TO /models (to be added)
-model_hate_binary.save('/content/drive/MyDrive/Colab Notebooks/Progetto GitHub/DL GitHub/binary_hate_model.h5')'''
-#model_hate_binary.save('/model/hate_filter_model.h5')
+#model_hate_binary.save('/content/drive/MyDrive/Colab Notebooks/Progetto GitHub/DL GitHub/binary_hate_model.h5')
+model_hate_binary.save('/../models/binary_hate_model.h5')
 
 ###
 try:
-  model_hate_binary = tf.keras.models.load_model('/content/drive/MyDrive/Colab Notebooks/Progetto GitHub/DL GitHub/binary_hate_model.h5')
+  model_hate_binary = tf.keras.models.load_model('/../models/binary_hate_model.h5')
   print("\033[92mModel 'model_hate_binary.h5' loaded successfully.\033[0m")
 except Exception as e:
   print(f"\033[91mError loading model 'model_hate_binary.h5': {e}\033[0m")
@@ -151,21 +151,21 @@ model_hate_type = hate_type_model(vocabulary_size = vocabulary_hate_type_size,
 
 csv_logger_hate_type = CSVLoggerCustom('/content/drive/MyDrive/Colab Notebooks/Progetto GitHub/DL GitHub/binary_hate_model.h5')
 
-'''history_hate_type = model_hate_type.fit(padded_train_hate_type_sequences,
+history_hate_type = model_hate_type.fit(padded_train_hate_type_sequences,
                                         y_train_hate_type,
                                         epochs = 100,
                                         validation_split = 0.2,
                                         batch_size = 64,
-                                        callbacks = [callback_hate_type(), csv_logger_hate_type])'''
+                                        callbacks = [callback_hate_type(), csv_logger_hate_type])
 
-#model_hate_type.save('/content/drive/MyDrive/Colab Notebooks/Progetto GitHub/DL GitHub/model_hate_type.h5')
+model_hate_type.save('/../models/model_hate_type.h5')
 
 ###
 try:
   loss_fn = weighted_binary_crossentropy(weights_tensor)
 
   model_hate_type = tf.keras.models.load_model(
-    '/content/drive/MyDrive/Colab Notebooks/Progetto GitHub/DL GitHub/model_hate_type.h5',
+    '/../models/model_hate_type.h5',
     custom_objects={'weighted_binary_crossentropy': loss_fn}
   )
   print("\033[92mModel 'model_hate_type.h5' loaded successfully.\033[0m")
