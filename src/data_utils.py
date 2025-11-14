@@ -5,6 +5,7 @@ import csv
 import re
 import os
 from termcolor import colored
+import pickle
 
 from tensorflow.keras.preprocessing.text import Tokenizer
 from tensorflow.keras.preprocessing.sequence import pad_sequences
@@ -56,7 +57,7 @@ def preprocess_text(df: pd.DataFrame, text_col: str = "comment_text") -> pd.Data
 #------------------------------------------------------------------
 
 
-def tokenization_and_pudding(x_train, x_test, num_words: int = None, verbose = False):
+def tokenization_and_pudding(x_train, x_test, num_words: int = None, verbose = False, folder = None):
     """
     Performs tokenization and padding on training and test texts.
 
@@ -92,8 +93,14 @@ def tokenization_and_pudding(x_train, x_test, num_words: int = None, verbose = F
     vocabulary_size = len(tokenizer.word_counts) + 1 # that + 1 is for padding
 
     if verbose == True:
-        print(colored(f"Tokenization complete: {vocabulary_size} words in vocabulary, max_len={max_len}",'green'))
-
+      print(colored(f"Tokenization complete: {vocabulary_size} words in vocabulary, max_len={max_len}",'green'))
+    
+    try:
+      with open("../models/{folder}/tokenizer_binary_hate.pkl", "rb") as f:
+        tokenizer_binary = pickle.load(f) 
+    except Exception as e:
+      print(e)
+      
     return padded_train_sequences, padded_test_sequences, max_len, vocabulary_size, tokenizer
 
 
