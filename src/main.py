@@ -101,7 +101,7 @@ model_hate_binary.save('../models/binary_hate_model.h5')
 
 ###
 try:
-  model_hate_binary = tf.keras.models.load_model('/../models/binary_hate_model.h5')
+  model_hate_binary = tf.keras.models.load_model('../models/binary_hate_model.h5')
   print("\033[92mModel 'model_hate_binary.h5' loaded successfully.\033[0m")
 except Exception as e:
   print(f"\033[91mError loading model 'model_hate_binary.h5': {e}\033[0m")
@@ -158,15 +158,19 @@ history_hate_type = model_hate_type.fit(padded_train_hate_type_sequences,
                                         batch_size = 64,
                                         callbacks = [callback_hate_type(), csv_logger_hate_type])
 
-model_hate_type.save('/../models/model_hate_type.h5')
+model_hate_type.save('../models/model_hate_type.h5')
 
 ###
 try:
   model_hate_type = tf.keras.models.load_model(
-    "model_hate_type.h5",
+    "../models/model_hate_type.h5",
     custom_objects={"weighted_binary_crossentropy": weighted_binary_crossentropy(weights_tensor)},
     compile=False
   )
   print("\033[92mModel 'model_hate_type.h5' loaded successfully.\033[0m")
 except Exception as e:
   print(f"\033[91mError loading model 'model_hate_type.h5': {e}\033[0m")
+
+
+# EVALUATE THE MODEL AND SAVE IN /result
+evaluate_model(model_hate_binary, padded_test_hate_sequences, y_test_hate, folder = 'binary_hate')
