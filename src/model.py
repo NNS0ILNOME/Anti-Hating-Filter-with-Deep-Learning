@@ -2,7 +2,7 @@ import numpy as np
 from sklearn.utils import class_weight
 import tensorflow as tf
 from tensorflow.keras.callbacks import ReduceLROnPlateau, EarlyStopping, ModelCheckpoint
-from tensorflow.keras.layers import Embedding, Dense, LSTM, Bidirectional, Dropout, BatchNormalization
+from tensorflow.keras.layers import Embedding, Dense, LSTM, Bidirectional, Dropout, BatchNormalization, GlobalMaxPooling1D
 from tensorflow.keras.models import Sequential
 
 
@@ -61,13 +61,13 @@ def class_weights_hate(y_train):
 
 def compute_class_weights(y_train):
 
-    class_counts = np.sum(y_train, axis=0)
-    class_freq = class_counts / y_train.shape[0]
+  class_counts = np.sum(y_train, axis=0)
+  class_freq = class_counts / y_train.shape[0]
 
-    weights = 1.0 / class_freq
-    weights = weights / np.sum(weights) * len(weights)
+  weights = 1.0 / class_freq
+  weights = weights / np.sum(weights) * len(weights)
 
-    return weights
+  return weights
 
 
 # -----------------------------------
@@ -76,31 +76,31 @@ def compute_class_weights(y_train):
 
 def weighted_binary_crossentropy(weights):
   
-    weights = tf.constant(weights, dtype=tf.float32)
+  weights = tf.constant(weights, dtype=tf.float32)
     
-    def loss(y_true, y_pred):
-        bce = tf.keras.backend.binary_crossentropy(y_true, y_pred)
-        return tf.reduce_sum(bce * weights, axis=-1)
+  def loss(y_true, y_pred):
+    bce = tf.keras.backend.binary_crossentropy(y_true, y_pred)
+    return tf.reduce_mean(bce * weights, axis=-1)
     
-    return loss
-
+  return loss
 
 
 # ----------------------------
 # ---------- MODELS ----------
 # ----------------------------
 
-
 def binary_hate_model(vocabulary_size, max_len, dropout, optimizer, loss, metrics):
 
   model = Sequential()
-  model.add(Embedding(input_dim = vocabulary_size, output_dim = 128, input_length = max_len))
+  model.add(Embedding(input_dim = vocabulary_size, 
+                      output_dim = 128, 
+                      input_length = max_len))
 
-  model.add(Bidirectional(LSTM(32, return_sequences=False, activation='tanh')))
+  model.add(Bidirectional(LSTM(64, return_sequences=False)))
   model.add(BatchNormalization())
   model.add(Dropout(dropout))
 
-  model.add(Dense(16, activation='relu'))
+  model.add(Dense(32, activation='relu'))
   model.add(BatchNormalization())
   model.add(Dropout(dropout))
 
@@ -118,13 +118,15 @@ def binary_hate_model(vocabulary_size, max_len, dropout, optimizer, loss, metric
 def hate_type_model(vocabulary_size, max_len, dropout, optimizer, loss, metrics):
 
   model = Sequential()
-  model.add(Embedding(input_dim = vocabulary_size, output_dim = 256, input_length = max_len))
+  model.add(Embedding(input_dim = vocabulary_size, 
+                      output_dim = 256, 
+                      input_length = max_len))
 
-  model.add(Bidirectional(LSTM(units = 256, activation = 'tanh')))
+  model.add(Bidirectional(LSTM(128, return_sequences=False)))
   model.add(BatchNormalization())
   model.add(Dropout(dropout))
 
-  model.add(Dense(units = 128, activation = 'relu'))
+  model.add(Dense(units = 64, activation = 'relu'))
   model.add(BatchNormalization())
   model.add(Dropout(dropout))
 
@@ -136,3 +138,9 @@ def hate_type_model(vocabulary_size, max_len, dropout, optimizer, loss, metrics)
                 metrics = metrics)
 
   return model
+
+# ----------------------------
+
+def prediction(first_model, second_model, threshold, X):
+
+  first_model.predict

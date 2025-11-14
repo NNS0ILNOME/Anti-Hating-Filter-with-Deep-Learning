@@ -3,6 +3,7 @@ import pandas as pd
 import numpy as np
 import seaborn as sns
 import matplotlib.pyplot as plt
+import json
 
 from sklearn.metrics import classification_report, confusion_matrix, precision_recall_curve, \
   accuracy_score, precision_score, recall_score, f1_score
@@ -46,7 +47,8 @@ def f1_score_optimization(y_true, y_pred):
   f1_scores = (2 * precision[:-1] * recall[:-1]) / (precision[:-1] + recall[:-1])
   f1_scores[np.isnan(f1_scores)] = 0  
   optimal_threshold = thresholds[np.argmax(f1_scores)]
-  print(f"\033[92mThreshold ottimale per la classificazione binaria (massimizzando l'F1-score): {optimal_threshold:.3f}\033[0m")
+  with open('../results/binary_hate/best_threshold.json', 'w') as f:
+    json.dump({"threshold": float(optimal_threshold)}, f, indent=4)
   return optimal_threshold
 
 
