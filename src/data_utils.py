@@ -95,11 +95,9 @@ def tokenization_and_pudding(x_train, x_test, num_words: int = None, verbose = F
     if verbose == True:
       print(colored(f"Tokenization complete: {vocabulary_size} words in vocabulary, max_len={max_len}",'green'))
     
-    try:
-      with open("../models/{folder}/tokenizer_binary_hate.pkl", "rb") as f:
-        tokenizer_binary = pickle.load(f) 
-    except Exception as e:
-      print(e)
+    # Save the tokenizer
+    with open("../models/tokenizer.pkl", "wb") as f:
+        pickle.dump(tokenizer, f)
       
     return padded_train_sequences, padded_test_sequences, max_len, vocabulary_size, tokenizer
 
