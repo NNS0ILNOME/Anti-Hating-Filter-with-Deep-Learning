@@ -6,6 +6,7 @@ import re
 import os
 from termcolor import colored
 import pickle
+import json
 
 from tensorflow.keras.preprocessing.text import Tokenizer
 from tensorflow.keras.preprocessing.sequence import pad_sequences
@@ -84,6 +85,9 @@ def tokenization_and_pudding(x_train, x_test, num_words: int = None, verbose = F
 
     # Determine the maximum length
     max_len = max(len(seq) for seq in train_sequences)
+
+    with open('../models/tokenizer_param.json', 'w') as f:
+      json.dump({"max_len": float(max_len)}, f, indent=4)
 
     # Apply padding
     padded_train_sequences = pad_sequences(sequences = train_sequences, maxlen = max_len)

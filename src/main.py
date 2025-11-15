@@ -54,7 +54,7 @@ x = df.comment_text.values
 y_hate = df.loc[:, 'has_hate']
 
 # EVALUTATE CLASS DISTRIBUTIONS
-class_counts = class_counts = pd.Series(y_hate).value_counts().sort_index()
+class_counts = pd.Series(y_hate).value_counts().sort_index()
 evaluation_class(count = class_counts, folder = 'binary_hate')
 
 # SPLIT DATASET

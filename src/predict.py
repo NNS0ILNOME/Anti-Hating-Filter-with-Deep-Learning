@@ -2,10 +2,12 @@ import numpy as np
 import pandas as pd
 import tensorflow as tf
 import json
+import pickle
 
 from tensorflow.keras.models import load_model
 from model import weighted_binary_crossentropy
 from data_utils import  preprocess_text
+from tensorflow.keras.preprocessing.sequence import pad_sequences
 
 
 # LOAD THE TENSOR WEIGHTS FOR THE 'model_hate_type'
@@ -33,6 +35,26 @@ except Exception as e:
 with open('../results/binary_hate/best_threshold.json', 'r') as f:
   best_threshold_binary_hate = json.load(f)["threshold"]
 
+# Load the optimal threshold for the first model
+with open('../models/tokenizer_param.json', 'r') as f:
+  max_len = json.load(f)["max_len"]
+
+try:
+  with open("../models/tokenizer.pkl", "rb") as f:
+      tokenizer = pickle.load(f)
+except Exception as e:
+  print("Errore nel caricamento del tokenizer:", e)
+
 
 df = pd.read_csv('../data/test_comments.csv')
-df = preprocess_text(df)
+df = preprocess_text(df, text_col="comment")
+
+X = df.comment.values
+
+X_sequences = tokenizer.texts_to_sequences(X)
+
+padded_X_sequences = pad_sequences(sequences = X_sequences, maxlen = max_len)
+
+y_pred = model_hate_binary.predict(padded_X_sequences)
+y_pred_opt = (y_pred >= best_threshold_binary_hate).astype(int).flatten()
+print(y_pred_opt)
